@@ -4,10 +4,11 @@ package edu.eci.arep.proyecto;
  * Hello world!
  *
  */
-public class App 
+public class Controlador 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        AppServer ap = new AppServer();
+        ap.inicializar();
     }
 }
