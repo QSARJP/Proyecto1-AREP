@@ -69,7 +69,7 @@ public class AppServer {
             String request = "";
             String inputLine;
 
-            while (!(inputLine = in.readLine()).equals("")) {
+            while ((inputLine = in.readLine())!= null) {
                 if (inputLine.matches("(GET)+.*"))
                     request = inputLine.split(" ")[1];
                 if (!in.ready())
@@ -164,12 +164,12 @@ public class AppServer {
 
     private static int getPort() {
 
-		ProcessBuilder processBuilder = new ProcessBuilder();
-		if (processBuilder.environment().get("PORT") != null) {
-			return Integer.parseInt(processBuilder.environment().get("PORT"));
-		}
-		return PORT;
-	}
+		if (System.getenv("PORT") != null) {
+            return Integer.parseInt(System.getenv("PORT"));
+        }
+        return 4567; //returns default port if heroku-port isn't set (i.e.on localhost)
+    }
+	
 
 
     private static void load (String classPath,Handler han){
