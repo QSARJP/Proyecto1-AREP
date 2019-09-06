@@ -2,7 +2,7 @@
 
 ## Enlace a heroku
 
-[Proyecto Juan Ospina](https://mysterious-mountain-47310.herokuapp.com/)
+[Proyecto Juan Ospina](https://salty-river-29279.herokuapp.com/)
 
 ## Compile and run instructions
 
