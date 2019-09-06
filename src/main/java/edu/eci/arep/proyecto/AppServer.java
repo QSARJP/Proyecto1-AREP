@@ -154,7 +154,7 @@ public class AppServer {
         DataOutputStream binaryOut;
         binaryOut = new DataOutputStream(outStream);
         binaryOut.writeBytes("HTTP/1.1 200 OK \r\n");
-        binaryOut.writeBytes("Content-Type: image/png \r\n");
+        binaryOut.writeBytes("Content-Type: image/png\r\n");
         binaryOut.writeBytes("Content-Length: " + bytes.length);
         binaryOut.writeBytes("\r\n\r\n");
         binaryOut.write(bytes);
