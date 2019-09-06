@@ -25,9 +25,9 @@ realizar actividades de suma, resta, multiplicación, división y potencia
 # Diseño
 ## Arquitectura
 ### modelo de software
-![](img/modelo software.png)
+![](img/modeloSoftware.png)
 ### modelo de despliegue
-![](img/modelo despliegue.png)
+![](img/modeloDespliegue.PNG)
 ## Compile and run instructions
 
 * Para ejecutar empaquetar:
