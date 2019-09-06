@@ -1,6 +1,5 @@
 package edu.eci.arep.proyecto;
 
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -17,7 +16,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Set;
 
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
 
 import anotaciones.Aweb;
 
@@ -35,14 +37,19 @@ public class AppServer {
      */
     public static void inicializar() {
         try {
-            Class<?> c = Class.forName("apps.APP");
-            for( Method m : c.getDeclaredMethods()){
-                if (m.getAnnotations().length > 0){
-                    Handler handler = new StaticMethodHandler(m);
-                    load("/apps/"+m.getDeclaredAnnotation(Aweb.class).value(),handler);
+            Reflections reflections = new Reflections("apps", new SubTypesScanner(false));
+            Set<Class<?>> allClasses = reflections.getSubTypesOf(Object.class);
+
+            for (Class<?> clase : allClasses) {
+                for (Method m : clase.getMethods()) {
+                    if (m.getAnnotations().length > 0){
+                        Handler handler = new StaticMethodHandler(m);
+                        load("/apps/"+m.getDeclaredAnnotation(Aweb.class).value(),handler);
+                    }
+                    
                 }
-                
             }
+            
             //System.out.println(c.getDeclaredAnnotations().length);
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -50,7 +57,8 @@ public class AppServer {
         }
     }
     /**
-     * El metodo listen es el encargado de tener el servidor web funcionado y en si es el motor de toda la aplicacion
+     * El metodo listen es el encargado de tener el servidor web funcionado y es el que escucha cualqueir peticion y a cada instante y retorna cada peticion con su respectivo 
+     * recurso, si el servidor conoce la direccion 
      * @throws IOException
      */
     public static void listen() throws IOException {
