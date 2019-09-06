@@ -134,7 +134,7 @@ public class AppServer {
     
 
     private static void readImage(PrintWriter out, OutputStream outStream, String request) throws IOException {
-        File graphicResource= new File("/resource/" +request);
+        File graphicResource= new File("resource/" +request);
         FileInputStream inputImage = new FileInputStream(graphicResource);
         byte[] bytes = new byte[(int) graphicResource.length()];
         inputImage.read(bytes);
@@ -150,7 +150,7 @@ public class AppServer {
     }
 
     private static void readHTML(PrintWriter out, String request) throws IOException {
-        BufferedReader bf = new BufferedReader(new FileReader( "/resource" + request ));
+        BufferedReader bf = new BufferedReader(new FileReader( "resource" + request ));
         out.print("HTTP/1.1 200 OK \r");
         out.print("Content-Type: text/html \r\n");
         out.print("\r\n");
