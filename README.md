@@ -2,7 +2,7 @@
 
 ## Enlace a heroku
 
-[Proyecto Juan Ospina](https://peaceful-atoll-45117.herokuapp.com/)
+[Proyecto Juan Ospina](https://mysterious-mountain-47310.herokuapp.com/)
 
 ## Compile and run instructions
 
