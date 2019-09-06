@@ -191,8 +191,8 @@ public class AppServer {
 
 
     private static void linkin(PrintWriter out) {
-        out.println("HTTP/1.1 200 OK \r\n");
-        out.println("Content-Type: text/html  \r\n");
+        out.print("HTTP/1.1 200 OK \r");
+        out.print("Content-Type: text/html \r\n");
         out.print("\r\n");
         URL url = null;
         try {
