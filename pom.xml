@@ -7,33 +7,11 @@
   <version>1.0-SNAPSHOT</version>
   <name>proyectoPrimerCorte</name>
   <url>http://maven.apache.org</url>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.jclarion/image4j -->
-    <dependency>
-      <groupId>org.jclarion</groupId>
-      <artifactId>image4j</artifactId>
-      <version>0.7</version>
-    </dependency>
-
-  </dependencies>
-
-  <build>
+    <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.0</version>
+        <version>3.1</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
@@ -41,19 +19,48 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.0.1</version>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>false</addClasspath>
+              <mainClass>edu.eci.arep.proyecto.Controlador</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <mainClass>co.edu.escuelaing.arem.HttpServer</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
         <executions>
           <execution>
-            <id>copy-dependencies</id>
+            <id>make-assembly</id>
             <phase>package</phase>
             <goals>
-              <goal>copy-dependencies</goal>
+              <goal>single</goal>
             </goals>
           </execution>
         </executions>
       </plugin>
     </plugins>
   </build>
-
+  <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+</dependencies>
 </project>

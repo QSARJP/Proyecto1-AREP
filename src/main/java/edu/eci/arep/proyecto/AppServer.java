@@ -1,8 +1,10 @@
 package edu.eci.arep.proyecto;
 
-import java.awt.image.BufferedImage;
+
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,8 +16,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 
-import javax.imageio.ImageIO;
-import javax.sound.midi.Patch;
 
 
 import anotaciones.Aweb;
@@ -89,7 +89,6 @@ public class AppServer {
             in.close();
             clientSocket.close();
 
-            serverSocket.close();
         }
 
     }
@@ -121,7 +120,7 @@ public class AppServer {
             }
         }else{
             if (request.endsWith(".png")) {
-                readImage(  out,outputStream,request);
+                readImage(out,outputStream,request);
             } else if (request.endsWith(".html")) {
                 readHTML(out, request);
             } else {
@@ -135,16 +134,24 @@ public class AppServer {
     
 
     private static void readImage(PrintWriter out, OutputStream outStream, String request) throws IOException {
-        out.println("HTTP/1.1 200 OK\r\n");
-        out.println("Content-Type: image/png\r\n");
-        out.println("\r\n");
-        BufferedImage image = ImageIO.read(new File(System.getProperty("user.dir") + "/resource" + request));
-        ImageIO.write(image, "PNG", outStream);
+        File graphicResource= new File("/resource/" +request);
+        FileInputStream inputImage = new FileInputStream(graphicResource);
+        byte[] bytes = new byte[(int) graphicResource.length()];
+        inputImage.read(bytes);
+
+        DataOutputStream binaryOut;
+        binaryOut = new DataOutputStream(outStream);
+        binaryOut.writeBytes("HTTP/1.1 200 OK \r\n");
+        binaryOut.writeBytes("Content-Type: image/png\r\n");
+        binaryOut.writeBytes("Content-Length: " + bytes.length);
+        binaryOut.writeBytes("\r\n\r\n");
+        binaryOut.write(bytes);
+        binaryOut.close();
     }
 
     private static void readHTML(PrintWriter out, String request) throws IOException {
-        BufferedReader bf = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/resource" + request ));
-        out.print("HTTP/1.1 200 OK \r\n");
+        BufferedReader bf = new BufferedReader(new FileReader( "/resource" + request ));
+        out.print("HTTP/1.1 200 OK \r");
         out.print("Content-Type: text/html \r\n");
         out.print("\r\n");
         String line;
