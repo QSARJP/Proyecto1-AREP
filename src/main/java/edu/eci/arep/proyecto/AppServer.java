@@ -20,14 +20,18 @@ import java.util.HashMap;
 
 import anotaciones.Aweb;
 
-
+/**
+ * Clase principal en donde estan dos metodos fundamentales el incializar y el escuchar
+ */
 
 public class AppServer {
 
     private static HashMap<String,Handler> listaUrl = new HashMap<String,Handler>();
 
     public static int PORT = 4567;
-
+    /**
+     * Este metodo nos permite ver todos lo metodos que tiene la clase APP y pueden ejecutarse dichos metodos
+     */
     public static void inicializar() {
         try {
             Class<?> c = Class.forName("apps.APP");
@@ -44,7 +48,10 @@ public class AppServer {
             e.printStackTrace();
         }
     }
-
+    /**
+     * El metodo listen es el encargado de tener el servidor web funcionado y en si es el motor de toda la aplicacion
+     * @throws IOException
+     */
     public static void listen() throws IOException {
 
         ServerSocket serverSocket = null;
@@ -100,9 +107,9 @@ public class AppServer {
             request = request.subSequence(0,request.indexOf("?")).toString();
             //System.out.println(listaUrl.values().toString());
             if (listaUrl.containsKey(request)) {
-                out.println("HTTP/1.1 200 OK\r\n");
-                out.println("Content-Type: text/html \r\n");
-                out.println("\r\n");
+                out.print("HTTP/1.1 200 OK \r");
+                out.print("Content-Type: text/html \r\n");
+                out.print("\r\n");
                 try {
                     
                     out.println(parametros == null ? listaUrl.get(request).procesar() : listaUrl.get(request).procesar(parametros));

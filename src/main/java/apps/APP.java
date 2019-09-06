@@ -1,6 +1,11 @@
 package apps;
 
-import anotaciones.Aweb;;
+import anotaciones.Aweb;
+
+
+/**
+ * Clase encargada de tener todas las aplicaciones
+ */
 
 public class APP {
 

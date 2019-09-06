@@ -3,7 +3,7 @@ package edu.eci.arep.proyecto;
 import java.io.IOException;
 
 /**
- * Hello world!
+ * Esta clase es el controlador la cual nos permite poder incializar todo el proceso
  *
  */
 public class Controlador 
