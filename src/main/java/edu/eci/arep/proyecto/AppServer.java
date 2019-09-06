@@ -87,6 +87,9 @@ public class AppServer {
 
             out.close();
             in.close();
+            clientSocket.close();
+
+            serverSocket.close();
         }
 
     }
@@ -98,8 +101,8 @@ public class AppServer {
             request = request.subSequence(0,request.indexOf("?")).toString();
             //System.out.println(listaUrl.values().toString());
             if (listaUrl.containsKey(request)) {
-                out.println("HTTP/1.1 200 OK\r");
-                out.println("Content-Type: text/html\r");
+                out.println("HTTP/1.1 200 OK\r\n");
+                out.println("Content-Type: text/html\r\n");
                 out.println("\r\n");
                 try {
                     
@@ -132,8 +135,8 @@ public class AppServer {
     
 
     private static void readImage(PrintWriter out, OutputStream outStream, String request) throws IOException {
-        out.println("HTTP/1.1 200 OK\r");
-        out.println("Content-Type: image/png\r");
+        out.println("HTTP/1.1 200 OK\r\n");
+        out.println("Content-Type: image/png\r\n");
         out.println("\r\n");
         BufferedImage image = ImageIO.read(new File(System.getProperty("user.dir") + "/resource" + request));
         ImageIO.write(image, "PNG", outStream);
