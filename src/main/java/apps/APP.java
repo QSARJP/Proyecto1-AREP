@@ -1,36 +1,45 @@
 package apps;
 
-import anotaciones.Aweb;
+import anotaciones.aWeb;;
 
 public class APP {
 
 
-	/**
-	 *
-	 */
-	
-	private static final String STRING = "/";
 
-	public static String pagina(){
-        return "HTTP/1.1 200 OK\r\n"
-        + "Content-Type: text/html\r\n"
-         + "\r\n"
-         + "<!DOCTYPE html>\n"
-         + "<html>\n"
-         + "<head>\n"
-         + "<meta charset=\"UTF-8\">\n"
-         + "<title>Title of the document</title>\n"
-         + "</head>\n"
-         + "<body>\n"
-         + "<h1>Mi propio mensaje</h1>\n"
-         + "</body>\n"
-         + "</html>\n";
-    }
-
-    @Aweb(value = STRING)
+    @aWeb(value = "prueba")
     public static String pruebaWeb (){
         return "prueba";
     }
+
+    @aWeb("suma")
+	public static String suma(String num1, String num2) {
+        //System.out.println(num1 +""+num2);
+		return "La suma de "+ num1 +"+"+ num2 +"=" + Integer.toString(Integer.parseInt(num1)+Integer.parseInt(num2));
+    }
+
+    @aWeb("resta")
+	public static String resta(String num1, String num2) {
+   
+		return "La suma de "+ num1 +"-"+ num2 +"=" + Integer.toString(Integer.parseInt(num1)-Integer.parseInt(num2));
+    }
+    
+    @aWeb("multi")
+	public static String multi(String num1, String num2) {
+        //System.out.println(num1 +""+num2);
+		return "La multiplicacion de "+ num1 +"*"+ num2 +"=" + Integer.toString(Integer.parseInt(num1)*Integer.parseInt(num2));
+    }
+    
+    @aWeb("div")
+	public static String division(String num1, String num2) {
+        //System.out.println(num1 +""+num2);
+		return "La division de "+ num1 +"/"+ num2 +"=" + Float.toString(Integer.parseInt(num1)/Integer.parseInt(num2));
+    }
+    
+    @aWeb("potencia")
+	public static String potencia(String num1,String num2) {
+        //System.out.println(num1 +""+num2);
+		return "el numero  "+ num1 +"al" + num2 +"es =" + Integer.toString((int ) Math.pow(Integer.parseInt(num1), Integer.parseInt(num2)));
+	}
 
 
 
