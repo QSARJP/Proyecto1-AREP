@@ -31,7 +31,7 @@ public class AppServer {
 
     public static int PORT = 4567;
     /**
-     * Este metodo nos permite ver todos lo metodos que tiene la clase APP y pueden ejecutarse dichos metodos
+     * Este metodo nos permite ver todos lo metodos que tiene la clase APP y pueden ejecutarse dichos metodos con respecto a una clase creada por el desarrollador
      */
     public static void inicializar() {
         try {
