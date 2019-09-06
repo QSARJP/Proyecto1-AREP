@@ -37,11 +37,15 @@ public class AppServer {
      */
     public static void inicializar() {
         try {
-            Reflections reflections = new Reflections("apps", new SubTypesScanner(false));
-            Set<Class<?>> allClasses = reflections.getSubTypesOf(Object.class);
-
-            for (Class<?> clase : allClasses) {
-                for (Method m : clase.getMethods()) {
+            File f = new File(System.getProperty("user.dir") + "/src/main/java/apps");
+            File[] ficheros = f.listFiles();
+            //Reflections reflections = new Reflections("apps", new SubTypesScanner(false));
+            //Set<Class<?>> allClasses = reflections.getSubTypesOf(Object.class);
+            for (File fs :ficheros){
+                String name = fs.getName();
+                name = "apps." + name.substring(0,name.indexOf("."));
+                Class<?> c = Class.forName(name);
+                for (Method m : c.getMethods()) {
                     if (m.getAnnotations().length > 0){
                         Handler handler = new StaticMethodHandler(m);
                         load("/apps/"+m.getDeclaredAnnotation(Aweb.class).value(),handler);
