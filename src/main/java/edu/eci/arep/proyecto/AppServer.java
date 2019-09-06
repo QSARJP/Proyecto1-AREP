@@ -193,7 +193,7 @@ public class AppServer {
     private static void linkin(PrintWriter out) {
         out.println("HTTP/1.1 200 OK \r\n");
         out.println("Content-Type: text/html  \r\n");
-        out.println("<a href=\"/index\">Volver</a>");
+        out.print("\r\n");
         URL url = null;
         try {
             url = new URL("https://www.linkinpark.com/");
