@@ -36,7 +36,7 @@ public class AppServer {
      */
     public static void inicializar() {
         try {
-            File f = new File("/src/main/java/apps");
+            File f = new File(System.getProperty("user.dir") + "/src/main/java/apps");
             File[] ficheros = f.listFiles();
             //Reflections reflections = new Reflections("apps", new SubTypesScanner(false));
             //Set<Class<?>> allClasses = reflections.getSubTypesOf(Object.class);
@@ -226,11 +226,12 @@ public class AppServer {
         
         if (request.matches("[/apps/]+[a-z]+[?]+[a-z,=,&,0-9]*")) {
             String[] preParams = request.split("\\?")[1].split("&");
-            //System.out.println(preParams.length);
+            System.out.println(preParams.length);
             params = new Object[preParams.length];
             for (int i = 0; i < preParams.length; i++) {
+                System.out.println(preParams[i]);
                 String str = preParams[i].split("=")[1];
-                //System.out.println(str);
+                System.out.println(str);
                 params[i] = str;
             }
         }
