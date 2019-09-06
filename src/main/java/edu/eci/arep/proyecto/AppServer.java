@@ -101,7 +101,7 @@ public class AppServer {
             //System.out.println(listaUrl.values().toString());
             if (listaUrl.containsKey(request)) {
                 out.println("HTTP/1.1 200 OK\r\n");
-                out.println("Content-Type: text/html\r\n");
+                out.println("Content-Type: text/html \r\n");
                 out.println("\r\n");
                 try {
                     
