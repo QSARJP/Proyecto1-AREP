@@ -230,8 +230,9 @@ public class AppServer {
             //System.out.println(preParams.length);
             params = new Object[preParams.length];
             for (int i = 0; i < preParams.length; i++) {
-                System.out.println(preParams[i]);
-                params[i] = preParams[i];
+                String str = preParams[i].split("=")[1];
+                //System.out.println(str);
+                params[i] = str;
             }
         }
         return params;
