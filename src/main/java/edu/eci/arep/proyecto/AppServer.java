@@ -36,7 +36,7 @@ public class AppServer {
      */
     public static void inicializar() {
         try {
-            File f = new File(System.getProperty("user.dir") + "/src/main/java/apps");
+            File f = new File("/src/main/java/apps");
             File[] ficheros = f.listFiles();
             //Reflections reflections = new Reflections("apps", new SubTypesScanner(false));
             //Set<Class<?>> allClasses = reflections.getSubTypesOf(Object.class);
