@@ -18,7 +18,7 @@ import javax.imageio.ImageIO;
 import javax.sound.midi.Patch;
 
 
-import anotaciones.aWeb;
+import anotaciones.AWeb;
 
 
 
@@ -34,7 +34,7 @@ public class AppServer {
             for( Method m : c.getDeclaredMethods()){
                 if (m.getAnnotations().length > 0){
                     Handler handler = new StaticMethodHandler(m);
-                    load("/apps/"+m.getDeclaredAnnotation(aWeb.class).value(),handler);
+                    load("/apps/"+m.getDeclaredAnnotation(AWeb.class).value(),handler);
                 }
                 
             }
