@@ -16,7 +16,11 @@
 # Descripción del laboratorio
 ### Descripción 
 
-
+tiene como objetivo la construcción de un servidor Web (tipo apache) en Java.
+El servidor debe tener ciertos requisitos como ser capaz de entender páginas HTML e imágenes. 
+Además de eso el servidor debe proveer un framework IoC para la construcción de aplicaciones a 
+partir de POJOS. Para este caso se tendrá una aplicación básica de calculadora la cual podremos 
+realizar actividades de suma, resta, multiplicación, división y potencia
 
 # Diseño
 ## Arquitectura
