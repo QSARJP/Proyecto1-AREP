@@ -12,11 +12,13 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URL;
 import java.util.HashMap;
-
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import anotaciones.Aweb;
 
@@ -128,6 +130,10 @@ public class AppServer {
         }else{
             if (request.endsWith(".png")) {
                 readImage(out,outputStream,request);
+
+            }else if (request.endsWith("/linkin")) {
+                linkin(out);
+
             } else if (request.endsWith(".html")) {
                 readHTML(out, request);
             } else {
@@ -181,6 +187,28 @@ public class AppServer {
 
     private static void load (String classPath,Handler han){
         listaUrl.put(classPath, han);
+    }
+
+
+    private static void linkin(PrintWriter out) {
+        out.println("HTTP/1.1 200 OK");
+        out.println("Content-Type: text/html + \r\n");
+        out.println("<a href=\"/index\">Volver</a>");
+        URL url = null;
+        try {
+            url = new URL("https://www.linkinpark.com/");
+        } catch (IOException ex) {
+            
+                System.err.println(ex);
+        }
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
+            String inputLine = null;
+            while ((inputLine = reader.readLine()) != null) {
+                out.println(inputLine + "\r\n");
+            }
+
+        } catch (IOException x) {
+        }
     }
 
     private static Object[] extParams(String request) {
