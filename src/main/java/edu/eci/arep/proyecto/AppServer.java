@@ -107,6 +107,7 @@ public class AppServer {
             out.close();
             in.close();
             clientSocket.close();
+            serverSocket.close();
 
         }
 
