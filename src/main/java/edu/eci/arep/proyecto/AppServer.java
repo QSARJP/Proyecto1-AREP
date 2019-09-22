@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import anotaciones.Aweb;
+import edu.eci.arep.proyecto.socket.SerSocket;
 
 /**
  * Clase principal en donde estan dos metodos fundamentales el incializar y el
