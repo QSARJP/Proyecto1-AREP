@@ -21,8 +21,9 @@ public class CliSocket {
            return clientSocket;
        } catch (IOException e) {
            getClient(serverSocket);
+           return null;
        }
-       return null;
+       
    }
    
 }
