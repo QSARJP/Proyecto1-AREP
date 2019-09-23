@@ -1,6 +1,8 @@
 package edu.eci.arep.proyecto;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,6 +22,8 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.imageio.ImageIO;
 
 import anotaciones.Aweb;
 import edu.eci.arep.proyecto.socket.SerSocket;
@@ -63,10 +67,16 @@ public class AppServer implements Runnable {
         String request = "";
         try {
             while ((inputLine = in.readLine()) != null) {
-                if (inputLine.matches("(GET)+.*"))
-                    request = inputLine.split(" ")[1];
-                if (!in.ready())
+                System.out.println("Received: " + inputLine);
+                if (!in.ready()) {
                     break;
+                }
+                if (inputLine.contains("GET")) {
+                    String[] get = inputLine.split(" ");
+                    request = get[1];
+                } else if (inputLine.contains("POST")) {
+                    break;
+                }
             }
             if (request == null) {
                 request = "/error.html";
@@ -163,54 +173,50 @@ public class AppServer implements Runnable {
     }
 
     private static void readImage(PrintWriter out, Socket cliente, String request) {
-        File graphicResource = new File("resource/" + request);
-
+        String urlInputLine = "";
+        int img = request.indexOf('/') + 1;
+        while (!urlInputLine.endsWith(".jpg") && img < request.length()) {
+            urlInputLine += (request.charAt(img++));
+        }
         try {
-            FileInputStream inputImage = new FileInputStream(graphicResource);
-            byte[] bytes = new byte[(int) graphicResource.length()];
-            inputImage.read(bytes);
-
-            DataOutputStream binaryOut;
-            binaryOut = new DataOutputStream(cliente.getOutputStream());
-            binaryOut.writeBytes("HTTP/1.1 200 OK \r\n");
-            binaryOut.writeBytes("Content-Type: image/png\r\n");
-            binaryOut.writeBytes("Content-Length: " + bytes.length);
-            binaryOut.writeBytes("\r\n\r\n");
-            binaryOut.write(bytes);
-            binaryOut.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            File image = new File(classLoader.getResource(urlInputLine).getFile());
+            BufferedImage bImage = ImageIO.read(image);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ImageIO.write(bImage, "jpg", bos);
+            byte[] imagen = bos.toByteArray();
+            DataOutputStream outImg = new DataOutputStream(cliente.getOutputStream());
+            outImg.writeBytes("HTTP/1.1 200 OK \r\n");
+            outImg.writeBytes("Content-Type: image/jpg\r\n");
+            outImg.writeBytes("Content-Length: " + imagen.length);
+            outImg.writeBytes("\r\n\r\n");
+            outImg.write(imagen);
+            outImg.close();
+            out.println(outImg.toString());
+        } catch (Exception e) {
+            //notFound();
         }
 
     }
 
     private static void readHTML(PrintWriter out, String request) {
-        BufferedReader bf;
+        out.print("HTTP/1.1 200 OK \r");
+        out.print("Content-Type: text/html \r\n");
+        out.print("\r\n");
+        int pag = request.indexOf('/') + 1;
+        String urlInputLine = "";
+        while (!urlInputLine.endsWith(".html") && pag < request.length()) {
+            urlInputLine += (request.charAt(pag++));
+        }
         try {
-            bf = new BufferedReader(new FileReader("resource" + request));
-            out.print("HTTP/1.1 200 OK \r");
-            out.print("Content-Type: text/html \r\n");
-            out.print("\r\n");
-            String line;
-            while ((line = bf.readLine()) != null) {
-                out.print(line);
+            BufferedReader readerFile = new BufferedReader(new FileReader(classLoader.getResource(urlInputLine).getFile()));
+            while (readerFile.ready()) {
+                out.println(readerFile.readLine());
             }
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            out.close();
+        } catch (Exception e) {
+            // notFound();
         }
         
-    }
-
-
-
-    private static int getPort() {
-
-		if (System.getenv("PORT") != null) {
-            return Integer.parseInt(System.getenv("PORT"));
-        }
-        return 4567; //returns default port if heroku-port isn't set (i.e.on localhost)
     }
 	
 
