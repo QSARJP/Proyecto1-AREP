@@ -179,7 +179,7 @@ public class AppServer implements Runnable {
             binaryOut.write(bytes);
             binaryOut.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            
             e.printStackTrace();
         }
 
@@ -197,7 +197,7 @@ public class AppServer implements Runnable {
                 out.print(line);
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+           
             e.printStackTrace();
         }
         
