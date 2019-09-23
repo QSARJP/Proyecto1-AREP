@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import static edu.eci.arep.proyecto.AppServer.controlReq;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -52,7 +52,7 @@ public class AppServer implements Runnable {
         }
     }
 
-    public String controlReq(Socket cliente) {
+    public static String controlReq(Socket cliente) {
         BufferedReader in = null;
         try {
             in = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
@@ -113,7 +113,7 @@ public class AppServer implements Runnable {
         }
     }
 
-    private static void requests(Socket clientSocket, String request) {
+    private  void requests(Socket clientSocket, String request) {
         PrintWriter out = null;
         try {
             out = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -162,7 +162,7 @@ public class AppServer implements Runnable {
 
     }
 
-    private static void readImage(PrintWriter out, Socket cliente, String request) {
+    private  void readImage(PrintWriter out, Socket cliente, String request) {
         File graphicResource = new File("resource/" + request);
 
         try {
