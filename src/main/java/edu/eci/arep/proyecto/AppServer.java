@@ -46,7 +46,7 @@ public class AppServer implements Runnable {
         requests(cliente, path);
         try {
             cliente.close();
-            serverSocket.close();
+            //serverSocket.close();
         } catch (IOException ex) {
             Logger.getLogger(AppServer.class.getName()).log(Level.SEVERE, null, ex);
         }
