@@ -74,6 +74,7 @@ public class AppServer implements Runnable {
                 request = "/index.html";
 
             }
+            System.out.println(request);
         } catch (IOException ex) {
             Logger.getLogger(AppServer.class.getName()).log(Level.SEVERE, null, ex);
         }
